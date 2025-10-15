@@ -24,24 +24,6 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            position: relative;
-        }
-        
-        /* Fondo con logo */
-        .logo-background {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60%;
-            height: 60%;
-            background-image: url('logo-ranchon.jpg');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            opacity: 0.15;
-            z-index: -1;
-            pointer-events: none;
         }
         
         /* Encabezado */
@@ -50,8 +32,6 @@
             margin-bottom: 30px;
             padding: 20px;
             border-bottom: 2px solid #8B4513;
-            position: relative;
-            z-index: 1;
         }
         
         h1 {
@@ -72,8 +52,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative;
-            z-index: 1;
         }
         
         .book {
@@ -96,7 +74,7 @@
             padding: 30px;
             overflow-y: auto;
             transition: transform 0.6s ease;
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: #fff;
             border: 1px solid #e0d6c8;
         }
         
@@ -125,11 +103,44 @@
         .book.page-4-active .page-3 { transform: translateX(-100%); }
         .book.page-4-active .page-4 { transform: translateX(0); }
         
+        /* Logo en cada página */
+        .page-logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 120px;
+            height: 120px;
+            background-image: url('https://raw.githubusercontent.com/ranchon41/ranchon/main/logo-ranchon.jpg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 10;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* Imágenes de categorías */
+        .category-image {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 180px;
+            height: 180px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 10;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 3px solid #8B4513;
+        }
+        
         /* Contenido de las páginas */
         .page-content {
             height: 100%;
             display: flex;
             flex-direction: column;
+            margin-top: 140px;
         }
         
         .page-title {
@@ -198,8 +209,6 @@
             justify-content: center;
             margin-top: 30px;
             gap: 20px;
-            position: relative;
-            z-index: 1;
         }
         
         .nav-btn {
@@ -227,8 +236,6 @@
             align-items: center;
             gap: 5px;
             margin-top: 10px;
-            position: relative;
-            z-index: 1;
         }
         
         .page-dot {
@@ -251,8 +258,6 @@
             padding: 20px;
             color: #795548;
             border-top: 1px solid #e0d6c8;
-            position: relative;
-            z-index: 1;
         }
         
         /* Responsive */
@@ -269,9 +274,22 @@
                 font-size: 1.8rem;
             }
             
-            .logo-background {
-                width: 80%;
-                height: 40%;
+            .page-logo {
+                width: 80px;
+                height: 80px;
+                top: 15px;
+                left: 15px;
+            }
+            
+            .category-image {
+                width: 120px;
+                height: 120px;
+                top: 15px;
+                right: 15px;
+            }
+            
+            .page-content {
+                margin-top: 100px;
             }
         }
         
@@ -301,17 +319,27 @@
                 margin-top: 5px;
             }
             
-            .logo-background {
-                width: 90%;
-                height: 30%;
+            .page-logo {
+                width: 60px;
+                height: 60px;
+                top: 10px;
+                left: 10px;
+            }
+            
+            .category-image {
+                width: 80px;
+                height: 80px;
+                top: 10px;
+                right: 10px;
+            }
+            
+            .page-content {
+                margin-top: 80px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Fondo con logo -->
-    <div class="logo-background"></div>
-    
     <div class="container">
         <header>
             <h1>Ranchón</h1>
@@ -322,6 +350,8 @@
             <div class="book page-1-active" id="book">
                 <!-- Página 1: Entrantes -->
                 <div class="page page-1">
+                    <div class="page-logo"></div>
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80')"></div>
                     <div class="page-content">
                         <h2 class="page-title">Nuestro Menú</h2>
                         
@@ -437,6 +467,8 @@
                 
                 <!-- Página 2: Platos Fuertes -->
                 <div class="page page-2">
+                    <div class="page-logo"></div>
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1558036117-15e82a2c9a9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80')"></div>
                     <div class="page-content">
                         <h2 class="page-title">Nuestro Menú</h2>
                         
@@ -583,6 +615,8 @@
                 
                 <!-- Página 3: Pizzas y Espaguetis -->
                 <div class="page page-3">
+                    <div class="page-logo"></div>
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80')"></div>
                     <div class="page-content">
                         <h2 class="page-title">Nuestro Menú</h2>
                         
@@ -629,6 +663,8 @@
                 
                 <!-- Página 4: Hamburguesas -->
                 <div class="page page-4">
+                    <div class="page-logo"></div>
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80')"></div>
                     <div class="page-content">
                         <h2 class="page-title">Nuestro Menú</h2>
                         
