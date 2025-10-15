@@ -3,114 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú - Restaurante Ranchón</title>
+    <title>Ranchón - Nuestra Carta</title>
     <style>
+        /* Estilos generales */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Georgia', serif;
         }
         
         body {
-            background-color: #f8f5f0;
+            background-color: #f5f1e8;
             color: #333;
             line-height: 1.6;
+            padding: 20px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.05"><path fill="%23795548" d="M50,5C25.1,5,5,25.1,5,50c0,24.9,20.1,45,45,45s45-20.1,45-45C95,25.1,74.9,5,50,5z M50,85c-19.3,0-35-15.7-35-35s15.7-35,35-35s35,15.7,35,35S69.3,85,50,85z"/></svg>');
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
         }
         
+        /* Encabezado */
         header {
             text-align: center;
-            margin-bottom: 40px;
-            padding: 20px 0;
-            border-bottom: 2px solid #c19a6b;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-bottom: 2px solid #8B4513;
         }
         
         h1 {
-            color: #8b4513;
+            color: #5D4037;
             font-size: 2.8rem;
             margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
         
-        .subtitle {
-            color: #a0522d;
-            font-size: 1.2rem;
+        .tagline {
             font-style: italic;
+            color: #795548;
+            font-size: 1.2rem;
+        }
+        
+        /* Contenedor del libro */
+        .book-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .book {
+            width: 90%;
+            max-width: 900px;
+            height: 600px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            overflow: hidden;
+            background: white;
+        }
+        
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            padding: 30px;
+            overflow-y: auto;
+            transition: transform 0.6s ease;
+            background-color: #fff;
+            border: 1px solid #e0d6c8;
+        }
+        
+        .page-1 { z-index: 4; transform: translateX(0); }
+        .page-2 { z-index: 3; transform: translateX(100%); }
+        .page-3 { z-index: 2; transform: translateX(100%); }
+        .page-4 { z-index: 1; transform: translateX(100%); }
+        
+        .book.page-1-active .page-1 { transform: translateX(0); }
+        .book.page-1-active .page-2 { transform: translateX(100%); }
+        .book.page-1-active .page-3 { transform: translateX(100%); }
+        .book.page-1-active .page-4 { transform: translateX(100%); }
+        
+        .book.page-2-active .page-1 { transform: translateX(-100%); }
+        .book.page-2-active .page-2 { transform: translateX(0); }
+        .book.page-2-active .page-3 { transform: translateX(100%); }
+        .book.page-2-active .page-4 { transform: translateX(100%); }
+        
+        .book.page-3-active .page-1 { transform: translateX(-100%); }
+        .book.page-3-active .page-2 { transform: translateX(-100%); }
+        .book.page-3-active .page-3 { transform: translateX(0); }
+        .book.page-3-active .page-4 { transform: translateX(100%); }
+        
+        .book.page-4-active .page-1 { transform: translateX(-100%); }
+        .book.page-4-active .page-2 { transform: translateX(-100%); }
+        .book.page-4-active .page-3 { transform: translateX(-100%); }
+        .book.page-4-active .page-4 { transform: translateX(0); }
+        
+        /* Contenido de las páginas */
+        .page-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .page-title {
+            text-align: center;
+            color: #5D4037;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #8B4513;
         }
         
         .menu-section {
-            margin-bottom: 50px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            overflow: hidden;
+            margin-bottom: 25px;
         }
         
-        .section-header {
-            background-color: #8b4513;
-            color: white;
-            padding: 15px 20px;
-            text-align: center;
-        }
-        
-        .section-header h2 {
-            font-size: 1.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .menu-items {
-            padding: 20px;
+        .section-title {
+            font-size: 1.5rem;
+            color: #795548;
+            margin-bottom: 15px;
+            border-left: 4px solid #8B4513;
+            padding-left: 10px;
         }
         
         .menu-item {
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px dotted #e0d6c8;
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px dashed #e0d5c5;
-        }
-        
-        .menu-item:last-child {
-            border-bottom: none;
         }
         
         .item-name {
-            font-weight: 600;
-            color: #5d4037;
+            font-weight: bold;
+            flex: 1;
         }
         
         .item-price {
+            color: #8B4513;
             font-weight: bold;
-            color: #8b4513;
+            min-width: 80px;
+            text-align: right;
         }
         
-        .sub-items {
-            margin-left: 20px;
+        .item-description {
+            color: #666;
+            font-size: 0.9rem;
+            font-style: italic;
+            width: 100%;
             margin-top: 5px;
         }
         
-        .sub-item {
+        .addons {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .addon-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #795548;
+        }
+        
+        /* Controles de navegación */
+        .book-controls {
             display: flex;
-            justify-content: space-between;
-            padding: 5px 0;
-            font-size: 0.9rem;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 20px;
         }
         
-        .divider {
-            height: 20px;
-            background-color: #f8f5f0;
+        .nav-btn {
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
         }
         
+        .nav-btn:hover {
+            background-color: #5D4037;
+        }
+        
+        .nav-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .page-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .page-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #e0d6c8;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        
+        .page-dot.active {
+            background-color: #8B4513;
+        }
+        
+        /* Pie de página */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #795548;
+            border-top: 1px solid #e0d6c8;
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
+            .book {
+                height: 500px;
+            }
+            
             h1 {
                 font-size: 2.2rem;
+            }
+            
+            .page-title {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .book {
+                height: 400px;
+            }
+            
+            .page {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
             }
             
             .menu-item {
@@ -118,6 +264,7 @@
             }
             
             .item-price {
+                text-align: left;
                 margin-top: 5px;
             }
         }
@@ -126,288 +273,428 @@
 <body>
     <div class="container">
         <header>
-            <h1>Restaurante Ranchón</h1>
-            <p class="subtitle">Sabores auténticos que te transportan</p>
+            <h1>Ranchón</h1>
+            <p class="tagline">Sabores auténticos que te transportan al campo</p>
         </header>
         
-        <div class="menu-section">
-            <div class="section-header">
-                <h2>Entrantes</h2>
+        <div class="book-container">
+            <div class="book page-1-active" id="book">
+                <!-- Página 1: Entrantes -->
+                <div class="page page-1">
+                    <div class="page-content">
+                        <h2 class="page-title">Nuestro Menú</h2>
+                        
+                        <div class="menu-section">
+                            <h3 class="section-title">ENTRANTES</h3>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">FRITURA DE MALANGA</span>
+                                <span class="item-price">500$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">CROQUETAS CRIOLLAS</span>
+                                <span class="item-price">500$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">DADOS DE QUESO</span>
+                                <span class="item-price">600$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">DADOS DE JAMON</span>
+                                <span class="item-price">600$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">PAPAS FRITAS</span>
+                                <span class="item-price">700$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">ENSALADA FRIA</span>
+                                <span class="item-price">750$</span>
+                            </div>
+                            
+                            <div class="addons">
+                                <div class="addon-title">AGREGOS ENSALADA FRIA:</div>
+                                <div class="menu-item">
+                                    <span class="item-name">JAMÓN</span>
+                                    <span class="item-price">250$</span>
+                                </div>
+                                <div class="menu-item">
+                                    <span class="item-name">POLLO</span>
+                                    <span class="item-price">250$</span>
+                                </div>
+                                <div class="menu-item">
+                                    <span class="item-name">CHORIZO</span>
+                                    <span class="item-price">200$</span>
+                                </div>
+                                <div class="menu-item">
+                                    <span class="item-name">ATÚN</span>
+                                    <span class="item-price">350$</span>
+                                </div>
+                                <div class="menu-item">
+                                    <span class="item-name">ACEITUNA</span>
+                                    <span class="item-price">300$</span>
+                                </div>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">CROQUETAS RANCHÓN</span>
+                                <span class="item-price">800$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">BOLAS DE QUESO</span>
+                                <span class="item-price">900$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">FAJITAS DE POLLO</span>
+                                <span class="item-price">900$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">TOSTONES CON ATÚN</span>
+                                <span class="item-price">1000$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">GARBANZO FRITO</span>
+                                <span class="item-price">1500$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">EPERLAN</span>
+                                <span class="item-price">1700$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">BASTÓN DE POLLO</span>
+                                <span class="item-price">1800$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">CEVICHE</span>
+                                <span class="item-price">1800$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">ENTREMES MIXTO</span>
+                                <span class="item-price">1800$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">PICADERA RANCHÓN</span>
+                                <span class="item-price">3000$</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Página 2: Platos Fuertes -->
+                <div class="page page-2">
+                    <div class="page-content">
+                        <h2 class="page-title">Nuestro Menú</h2>
+                        
+                        <div class="menu-section">
+                            <h3 class="section-title">PLATO FUERTE</h3>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">POLLO GRILLETTE</span>
+                                <span class="item-price">2000$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">POLLO A LA CORDÓN BLEU</span>
+                                <span class="item-price">2600$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">POLLO A LA PRINCESA</span>
+                                <span class="item-price">2600$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">POLLO ASADO</span>
+                                <span class="item-price">1600$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">POLLO FRITO</span>
+                                <span class="item-price">1400$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">FAJITAS DE POLLO CON VEGETALES</span>
+                                <span class="item-price">1400$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">FRICASE DE POLLO</span>
+                                <span class="item-price">1600$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">CHULETA DE CERDO</span>
+                                <span class="item-price">2600$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">BISTEC DE CERDO</span>
+                                <span class="item-price">2300$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">LONJA ASADA</span>
+                                <span class="item-price">1800$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">MASA FRITA</span>
+                                <span class="item-price">2000$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">ESTOFADO DE CERDO</span>
+                                <span class="item-price">1800$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">FRICASE DE CERDO</span>
+                                <span class="item-price">2000$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">BISTEC URUGUAYO</span>
+                                <span class="item-price">3000$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">BISTEC A LA PRINCESA</span>
+                                <span class="item-price">2800$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">BISTEC ENCEBOLLADO</span>
+                                <span class="item-price">2400$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">COSTILLA FRITA</span>
+                                <span class="item-price">2400$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">COSTILLA ASADA</span>
+                                <span class="item-price">2000$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">COSTILLA ACARAMELADA</span>
+                                <span class="item-price">2400$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">LOMO AHUMADO</span>
+                                <span class="item-price">1900$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">COSTILLA A LA BARBIQUIN</span>
+                                <span class="item-price">2500$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">HIGADO DE CERDO</span>
+                                <span class="item-price">1500$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">PESCADO GRILLE</span>
+                                <span class="item-price">2500$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">CANCELLER</span>
+                                <span class="item-price">2800$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">PESCADO A LA REINA</span>
+                                <span class="item-price">2500$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">CHILINDRON DE CARNERO</span>
+                                <span class="item-price">2800$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">ESTOFADO DE CARNERO</span>
+                                <span class="item-price">2500$</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Página 3: Pizzas y Espaguetis -->
+                <div class="page page-3">
+                    <div class="page-content">
+                        <h2 class="page-title">Nuestro Menú</h2>
+                        
+                        <div class="menu-section">
+                            <h3 class="section-title">PIZZAS</h3>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">PIZZA DE QUESO</span>
+                                <span class="item-price">800$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">PIZZA TRES CARABELAS</span>
+                                <span class="item-price">1900$</span>
+                                <div class="item-description">(con tres agregos al gusto)</div>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">CALZONES</span>
+                                <span class="item-price">2200$</span>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-section">
+                            <h3 class="section-title">ESPAGUETIS</h3>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">ESPAGUETIS A LA CARBONATA</span>
+                                <span class="item-price">1500$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">LAZAÑA</span>
+                                <span class="item-price">1500$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">ESPAGUETIS CON QUESO</span>
+                                <span class="item-price">900$</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Página 4: Hamburguesas -->
+                <div class="page page-4">
+                    <div class="page-content">
+                        <h2 class="page-title">Nuestro Menú</h2>
+                        
+                        <div class="menu-section">
+                            <h3 class="section-title">HAMBURGUESAS</h3>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">CLÁSICA</span>
+                                <span class="item-price">850$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">CHESSEBURGUER</span>
+                                <span class="item-price">1000$</span>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <span class="item-name">DOBLE QUESO</span>
+                                <span class="item-price">1500$</span>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-section">
+                            <h3 class="section-title">Información</h3>
+                            <p style="margin-top: 20px; text-align: center; font-style: italic;">
+                                Todos nuestros platos están preparados con ingredientes frescos y de la más alta calidad.
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="menu-items">
-                <div class="menu-item">
-                    <span class="item-name">Fritura de Malanga</span>
-                    <span class="item-price">500$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Croquetas Criollas</span>
-                    <span class="item-price">500$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Dados de Queso</span>
-                    <span class="item-price">600$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Dados de Jamón</span>
-                    <span class="item-price">600$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Papas Fritas</span>
-                    <span class="item-price">700$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Ensalada Fría</span>
-                    <span class="item-price">750$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Agregos Ensalada Fría:</span>
-                    <span class="item-price"></span>
-                </div>
-                <div class="sub-items">
-                    <div class="sub-item">
-                        <span class="item-name">Jamón</span>
-                        <span class="item-price">250$</span>
-                    </div>
-                    <div class="sub-item">
-                        <span class="item-name">Pollo</span>
-                        <span class="item-price">250$</span>
-                    </div>
-                    <div class="sub-item">
-                        <span class="item-name">Chorizo</span>
-                        <span class="item-price">200$</span>
-                    </div>
-                    <div class="sub-item">
-                        <span class="item-name">Atún</span>
-                        <span class="item-price">350$</span>
-                    </div>
-                    <div class="sub-item">
-                        <span class="item-name">Aceituna</span>
-                        <span class="item-price">300$</span>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Croquetas Ranchón</span>
-                    <span class="item-price">800$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Bolas de Queso</span>
-                    <span class="item-price">900$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Fajitas de Pollo</span>
-                    <span class="item-price">900$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Tostones con Atún</span>
-                    <span class="item-price">1000$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Garbanzo Frito</span>
-                    <span class="item-price">1500$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Eperlan</span>
-                    <span class="item-price">1700$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Bastón de Pollo</span>
-                    <span class="item-price">1800$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Ceviche</span>
-                    <span class="item-price">1800$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Entremes Mixto</span>
-                    <span class="item-price">1800$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Picadera Ranchón</span>
-                    <span class="item-price">3000$</span>
-                </div>
+            
+            <div class="book-controls">
+                <button class="nav-btn" id="prev-btn">Página Anterior</button>
+                <button class="nav-btn" id="next-btn">Siguiente Página</button>
+            </div>
+            
+            <div class="page-indicator">
+                <div class="page-dot active" id="dot-1"></div>
+                <div class="page-dot" id="dot-2"></div>
+                <div class="page-dot" id="dot-3"></div>
+                <div class="page-dot" id="dot-4"></div>
             </div>
         </div>
         
-        <div class="menu-section">
-            <div class="section-header">
-                <h2>Plato Fuerte</h2>
-            </div>
-            <div class="menu-items">
-                <div class="menu-item">
-                    <span class="item-name">Pollo Grillette</span>
-                    <span class="item-price">2000$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Pollo a la Cordón Bleu</span>
-                    <span class="item-price">2600$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Pollo a la Princesa</span>
-                    <span class="item-price">2600$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Pollo Asado</span>
-                    <span class="item-price">1600$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Pollo Frito</span>
-                    <span class="item-price">1400$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Fajitas de Pollo con Vegetales</span>
-                    <span class="item-price">1400$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Fricase de Pollo</span>
-                    <span class="item-price">1600$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Chuleta de Cerdo</span>
-                    <span class="item-price">2600$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Bistec de Cerdo</span>
-                    <span class="item-price">2300$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Lonja Asada</span>
-                    <span class="item-price">1800$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Masa Frita</span>
-                    <span class="item-price">2000$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Estofado de Cerdo</span>
-                    <span class="item-price">1800$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Fricase de Cerdo</span>
-                    <span class="item-price">2000$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Bistec Uruguayo</span>
-                    <span class="item-price">3000$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Bistec a la Princesa</span>
-                    <span class="item-price">2800$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Bistec Encebollado</span>
-                    <span class="item-price">2400$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Costilla Frita</span>
-                    <span class="item-price">2400$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Costilla Asada</span>
-                    <span class="item-price">2000$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Costilla Acaramelada</span>
-                    <span class="item-price">2400$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Lomo Ahumado</span>
-                    <span class="item-price">1900$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Costilla a la Barbiquin</span>
-                    <span class="item-price">2500$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Higado de Cerdo</span>
-                    <span class="item-price">1500$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Pescado Grille</span>
-                    <span class="item-price">2500$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Canciller</span>
-                    <span class="item-price">2800$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Pescado a la Reina</span>
-                    <span class="item-price">2500$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Chilindron de Carnero</span>
-                    <span class="item-price">2800$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Estofado de Carnero</span>
-                    <span class="item-price">2500$</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="menu-section">
-            <div class="section-header">
-                <h2>Pizzas</h2>
-            </div>
-            <div class="menu-items">
-                <div class="menu-item">
-                    <span class="item-name">Pizza de Queso</span>
-                    <span class="item-price">800$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Pizza Tres Carabelas</span>
-                    <span class="item-price">1900$</span>
-                </div>
-                <div class="sub-items">
-                    <div class="sub-item">
-                        <span class="item-name">(con tres agregos al gusto)</span>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Calzones</span>
-                    <span class="item-price">2200$</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="menu-section">
-            <div class="section-header">
-                <h2>Espaguetis</h2>
-            </div>
-            <div class="menu-items">
-                <div class="menu-item">
-                    <span class="item-name">Espaguetis a la Carbonata</span>
-                    <span class="item-price">1500$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Lazaña</span>
-                    <span class="item-price">1500$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Espaguetis con Queso</span>
-                    <span class="item-price">900$</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="menu-section">
-            <div class="section-header">
-                <h2>Hamburguesas</h2>
-            </div>
-            <div class="menu-items">
-                <div class="menu-item">
-                    <span class="item-name">Clásica</span>
-                    <span class="item-price">850$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Cheeseburger</span>
-                    <span class="item-price">1000$</span>
-                </div>
-                <div class="menu-item">
-                    <span class="item-name">Doble Queso</span>
-                    <span class="item-price">1500$</span>
-                </div>
-            </div>
-        </div>
+        <footer>
+            <p>¡Te esperamos para disfrutar de los auténticos sabores de nuestra tierra!</p>
+            <p>Dirección: Cra 41 # 12-45, Medellín, Colombia</p>
+            <p>Teléfono: +57 300 123 4567</p>
+            <p>Horario: Lunes a Domingo 11:00 AM - 9:00 PM</p>
+        </footer>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const book = document.getElementById('book');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const dots = document.querySelectorAll('.page-dot');
+            
+            let currentPage = 1;
+            const totalPages = 4;
+            
+            // Actualizar estado de los botones y puntos
+            function updateNavigation() {
+                prevBtn.disabled = currentPage === 1;
+                nextBtn.disabled = currentPage === totalPages;
+                
+                dots.forEach((dot, index) => {
+                    if (index === currentPage - 1) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+                
+                // Actualizar clase del libro
+                book.className = 'book page-' + currentPage + '-active';
+            }
+            
+            // Navegar a página específica
+            function goToPage(pageIndex) {
+                if (pageIndex < 1 || pageIndex > totalPages) return;
+                
+                currentPage = pageIndex;
+                updateNavigation();
+            }
+            
+            // Event listeners
+            prevBtn.addEventListener('click', () => {
+                goToPage(currentPage - 1);
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                goToPage(currentPage + 1);
+            });
+            
+            // Navegación con puntos
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    goToPage(index + 1);
+                });
+            });
+            
+            // Inicializar navegación
+            updateNavigation();
+        });
+    </script>
 </body>
 </html>
