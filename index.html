@@ -78,45 +78,72 @@
             border: 1px solid #e0d6c8;
         }
         
-        .page-1 { z-index: 4; transform: translateX(0); }
+        .page-cover { z-index: 5; transform: translateX(0); }
+        .page-1 { z-index: 4; transform: translateX(100%); }
         .page-2 { z-index: 3; transform: translateX(100%); }
         .page-3 { z-index: 2; transform: translateX(100%); }
         .page-4 { z-index: 1; transform: translateX(100%); }
         
+        .book.page-cover-active .page-cover { transform: translateX(0); }
+        .book.page-cover-active .page-1 { transform: translateX(100%); }
+        .book.page-cover-active .page-2 { transform: translateX(100%); }
+        .book.page-cover-active .page-3 { transform: translateX(100%); }
+        .book.page-cover-active .page-4 { transform: translateX(100%); }
+        
+        .book.page-1-active .page-cover { transform: translateX(-100%); }
         .book.page-1-active .page-1 { transform: translateX(0); }
         .book.page-1-active .page-2 { transform: translateX(100%); }
         .book.page-1-active .page-3 { transform: translateX(100%); }
         .book.page-1-active .page-4 { transform: translateX(100%); }
         
+        .book.page-2-active .page-cover { transform: translateX(-100%); }
         .book.page-2-active .page-1 { transform: translateX(-100%); }
         .book.page-2-active .page-2 { transform: translateX(0); }
         .book.page-2-active .page-3 { transform: translateX(100%); }
         .book.page-2-active .page-4 { transform: translateX(100%); }
         
+        .book.page-3-active .page-cover { transform: translateX(-100%); }
         .book.page-3-active .page-1 { transform: translateX(-100%); }
         .book.page-3-active .page-2 { transform: translateX(-100%); }
         .book.page-3-active .page-3 { transform: translateX(0); }
         .book.page-3-active .page-4 { transform: translateX(100%); }
         
+        .book.page-4-active .page-cover { transform: translateX(-100%); }
         .book.page-4-active .page-1 { transform: translateX(-100%); }
         .book.page-4-active .page-2 { transform: translateX(-100%); }
         .book.page-4-active .page-3 { transform: translateX(-100%); }
         .book.page-4-active .page-4 { transform: translateX(0); }
+        
+        /* Carátula */
+        .cover-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: url('https://raw.githubusercontent.com/ranchon41/ranchon/main/portada.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 40px;
+        }
         
         /* Logo en cada página */
         .page-logo {
             position: absolute;
             top: 20px;
             left: 20px;
-            width: 120px;
-            height: 120px;
+            width: 200px;
+            height: 200px;
             background-image: url('https://raw.githubusercontent.com/ranchon41/ranchon/main/logo-ranchon.jpg');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
             z-index: 10;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 3px solid #8B4513;
         }
         
         /* Imágenes de categorías */
@@ -124,8 +151,8 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            width: 180px;
-            height: 180px;
+            width: 200px;
+            height: 200px;
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
@@ -140,7 +167,7 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            margin-top: 140px;
+            margin-top: 160px;
         }
         
         .page-title {
@@ -275,21 +302,21 @@
             }
             
             .page-logo {
-                width: 80px;
-                height: 80px;
+                width: 140px;
+                height: 140px;
                 top: 15px;
                 left: 15px;
             }
             
             .category-image {
-                width: 120px;
-                height: 120px;
+                width: 140px;
+                height: 140px;
                 top: 15px;
                 right: 15px;
             }
             
             .page-content {
-                margin-top: 100px;
+                margin-top: 120px;
             }
         }
         
@@ -320,21 +347,21 @@
             }
             
             .page-logo {
-                width: 60px;
-                height: 60px;
+                width: 100px;
+                height: 100px;
                 top: 10px;
                 left: 10px;
             }
             
             .category-image {
-                width: 80px;
-                height: 80px;
+                width: 100px;
+                height: 100px;
                 top: 10px;
                 right: 10px;
             }
             
             .page-content {
-                margin-top: 80px;
+                margin-top: 90px;
             }
         }
     </style>
@@ -347,11 +374,18 @@
         </header>
         
         <div class="book-container">
-            <div class="book page-1-active" id="book">
+            <div class="book page-cover-active" id="book">
+                <!-- Página 0: Carátula -->
+                <div class="page page-cover">
+                    <div class="cover-content">
+                        <!-- Solo la imagen de fondo, sin texto -->
+                    </div>
+                </div>
+                
                 <!-- Página 1: Entrantes -->
                 <div class="page page-1">
                     <div class="page-logo"></div>
-                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80')"></div>
+                    <div class="category-image" style="background-image: url('https://raw.githubusercontent.com/ranchon41/ranchon/main/croquetas.jpg')"></div>
                     <div class="page-content">
                         <h2 class="page-title">Nuestro Menú</h2>
                         
@@ -468,7 +502,7 @@
                 <!-- Página 2: Platos Fuertes -->
                 <div class="page page-2">
                     <div class="page-logo"></div>
-                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1558036117-15e82a2c9a9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80')"></div>
+                    <div class="category-image" style="background-image: url('https://raw.githubusercontent.com/ranchon41/ranchon/main/bistec.jpg')"></div>
                     <div class="page-content">
                         <h2 class="page-title">Nuestro Menú</h2>
                         
@@ -703,7 +737,8 @@
             </div>
             
             <div class="page-indicator">
-                <div class="page-dot active" id="dot-1"></div>
+                <div class="page-dot active" id="dot-cover"></div>
+                <div class="page-dot" id="dot-1"></div>
                 <div class="page-dot" id="dot-2"></div>
                 <div class="page-dot" id="dot-3"></div>
                 <div class="page-dot" id="dot-4"></div>
@@ -724,16 +759,16 @@
             const nextBtn = document.getElementById('next-btn');
             const dots = document.querySelectorAll('.page-dot');
             
-            let currentPage = 1;
-            const totalPages = 4;
+            let currentPage = 0; // 0 = carátula, 1-4 = páginas de contenido
+            const totalPages = 5;
             
             // Actualizar estado de los botones y puntos
             function updateNavigation() {
-                prevBtn.disabled = currentPage === 1;
-                nextBtn.disabled = currentPage === totalPages;
+                prevBtn.disabled = currentPage === 0;
+                nextBtn.disabled = currentPage === totalPages - 1;
                 
                 dots.forEach((dot, index) => {
-                    if (index === currentPage - 1) {
+                    if (index === currentPage) {
                         dot.classList.add('active');
                     } else {
                         dot.classList.remove('active');
@@ -741,12 +776,16 @@
                 });
                 
                 // Actualizar clase del libro
-                book.className = 'book page-' + currentPage + '-active';
+                if (currentPage === 0) {
+                    book.className = 'book page-cover-active';
+                } else {
+                    book.className = 'book page-' + currentPage + '-active';
+                }
             }
             
             // Navegar a página específica
             function goToPage(pageIndex) {
-                if (pageIndex < 1 || pageIndex > totalPages) return;
+                if (pageIndex < 0 || pageIndex >= totalPages) return;
                 
                 currentPage = pageIndex;
                 updateNavigation();
@@ -764,7 +803,7 @@
             // Navegación con puntos
             dots.forEach((dot, index) => {
                 dot.addEventListener('click', () => {
-                    goToPage(index + 1);
+                    goToPage(index);
                 });
             });
             
